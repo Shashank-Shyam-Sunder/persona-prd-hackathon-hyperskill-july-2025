@@ -1,25 +1,22 @@
+
 # PersonaPRD – AI Hackathon July 2025 🚀
 
-**PersonaPRD** is an AI-powered system developed during the **AI Hackathon July 2025**. It transforms unstructured Reddit feedback into structured, persona-specific **Product Requirements Documents (PRDs)** using semantic embeddings, clustering, and Gemini-based summarization.
+PersonaPRD is an AI-powered system developed during the AI Hackathon July 2025. It transforms unstructured Reddit feedback into structured, persona-specific Product Requirements Documents (PRDs) using semantic embeddings, clustering, and Gemini-based summarization.
 
-> 🎯 The goal: Accelerate early-stage product discovery and prioritization by extracting pain points directly from community conversations.
-
----
+🎯 **The goal**: Accelerate early-stage product discovery and prioritization by extracting pain points directly from community conversations.
 
 ## 🔍 What It Does
 
-1. **Loads persona-aligned Reddit data** from curated datasets.
-2. **Cleans and embeds posts** using SBERT (`all-MiniLM-L6-v2`).
-3. **Clusters posts** with UMAP + KMeans for topic grouping.
-4. **Computes diagnostics** like silhouette and intra/inter-cluster distance ratios.
-5. **Summarizes each cluster** into user pain points using Gemini (LangChain).
-6. **Lets you select clusters** to auto-generate a structured PRD (.docx).
-
----
+- Loads persona-aligned Reddit data from curated datasets.
+- Cleans and embeds posts using SBERT (`all-MiniLM-L6-v2`).
+- Clusters posts with UMAP + KMeans for topic grouping.
+- Computes diagnostics like silhouette and intra/inter-cluster distance ratios.
+- Summarizes each cluster into user pain points using Gemini (LangChain).
+- Lets you select clusters to auto-generate a structured PRD (`.docx`).
 
 ## 🗂️ Project Structure
 
-```bash
+```
 persona-prd-hackathon-hyperskill-july-2025/
 │
 ├── .venv/                                 # Python virtual environment (optional)
@@ -64,11 +61,9 @@ persona-prd-hackathon-hyperskill-july-2025/
 │   └── utils.py                          # Save PRD as .docx
 ```
 
----
-
 ## 🚀 Quickstart
 
-### 1. 🔧 Install requirements
+1. 🔧 **Install requirements**
 
 ```bash
 python -m venv .venv
@@ -76,27 +71,26 @@ source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
 
-### 2. 🔑 Set your `.env`
+2. 🔑 **Set your .env**
 
 Create a file named `.env` in the root and add your Google API key:
 
-```bash
+```env
 GOOGLE_API_KEY=your-real-key-here
 ```
 
-### 3. 🧠 Run the full MVP pipeline
+3. 🧠 **Run the full MVP pipeline**
 
 ```bash
 python run_full_mvp_cli.py
 ```
 
 You'll be prompted to:
-- Select a **persona**
-- Select a **subreddit dataset**
+
+- Select a persona
+- Select a subreddit dataset
 - Review pain point summaries
 - Select which clusters to include in the PRD
-
----
 
 ## 📄 Output Examples
 
@@ -107,21 +101,38 @@ After running the pipeline, you’ll get:
 - ✅ `pain_point_summaries.csv`: Gemini-based summaries per cluster
 - ✅ `PRD_DRAFT.docx`: A fully structured PRD
 
----
+## 🧾 Data Format
+
+Each dataset is a `.json` file containing an array of Reddit posts, where each post includes:
+
+- **Post metadata**: `id`, `title`, `selftext`, `url`, `score`, `upvote_ratio`, `num_comments`, `created_utc`, `author`, `subreddit`
+- **Post flags**: e.g., `is_self`, `stickied`, `locked`, `spoiler`, etc.
+- **Comment threads** (up to 100): Nested objects with `id`, `body`, `score`, `created_utc`, `author`, and parent relationships
+- **Engagement metrics**: Vote scores, comment counts, interaction ratios
+
+**📌 Current Scope in MVP:**  
+We currently use only the **post title** and **selftext** for our semantic analysis. These are combined into a single string (`combined_text`) per post to generate embeddings.
+
+> 💡 Developers can experiment with incorporating other metadata (e.g., comment threads, engagement) for more nuanced clustering and insights.
+
+## 🔬 Embedding & Model Configuration
+
+- **Embeddings**: We use `sentence-transformers/all-MiniLM-L6-v2`, producing 384-dimensional embeddings.
+  - ✅ Lightweight, fast, suitable for hackathon constraints
+  - 💡 You can swap this out with higher-dimensional models like `OpenAI`'s `text-embedding-3-large` for potentially better clustering and semantic results
+
+- **LLM Summarization**: We currently use `Gemini 1.5 Flash` via LangChain to summarize clusters and generate PRDs.
+  - 💡 Swap in your preferred model (e.g., GPT-4, Claude) for improved quality or domain-specific tuning.
 
 ## 💡 Ideal Use Cases
 
-- Product Managers and Designers doing early-stage **user discovery**
-- AI teams building **semantic feedback clustering** tools
+- Product Managers and Designers doing early-stage user discovery
+- AI teams building semantic feedback clustering tools
 - Startups validating ideas using community pain points
-
----
 
 ## 🧠 Credits
 
-Built by [Team PersonaPRD](https://github.com/Shashank-Shyam-Sunder) as part of the **Hyperskill AI Engineer Bootcamp + Hackathon (July 2025)**.
-
----
+Built by Team PersonaPRD as part of the Hyperskill AI Engineer Bootcamp + Hackathon (July 2025).
 
 ## 📜 License
 
