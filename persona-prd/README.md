@@ -37,3 +37,4 @@ that implements data processing and clustering.
 After that, we converted the console application to API.
 Next step, we planned to link FE with BE API,
 but we did not have enough time to complete.
+Please read integrate-frontend README that explains the flow.
