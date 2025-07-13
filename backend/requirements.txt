@@ -22,3 +22,7 @@ python-docx
 
 # Optional (for CLI enhancements or logging)
 tqdm
+
+# Front end
+fastapi
+uvicorn

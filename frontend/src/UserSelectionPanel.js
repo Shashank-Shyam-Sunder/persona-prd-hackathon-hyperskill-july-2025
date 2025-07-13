@@ -1,142 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function UserSelectionPanel({ onSelectionChange }) {
+  const [personas, setPersonas] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState("");
   const [selectedSubreddit, setSelectedSubreddit] = useState("");
+  const [subreddits, setSubreddits] = useState([]);
 
-  const personas = [
-    "Vibe Coders",
-    "Self-Hosting Enthusiasts",
-    "Data Professionals",
-  ];
-
-  // This would ideally be dynamically loaded or mapped based on persona
-  const subreddits = {
-    "Vibe Coders": [
-      "r/coding",
-      "r/learnprogramming",
-      "r/webdev",
-      "r/programming",
-    ],
-    "Self-Hosting Enthusiasts": [
-      "r/selfhosted",
-      "r/homelab",
-      "r/privacy",
-      "r/Docker",
-    ],
-    "Data Professionals": [
-      "r/datascience",
-      "r/businessintelligence",
-      "r/dataengineering",
-      "r/MachineLearning",
-    ],
-  };
+  // Load personas on first render
+  useEffect(() => {
+    fetch("http://localhost:8000/personas")
+      .then((res) => res.json())
+      .then((data) => setPersonas(data))
+      .catch((err) => console.error("Failed to fetch personas:", err));
+  }, []);
 
   const handlePersonaChange = (event) => {
     const persona = event.target.value;
     setSelectedPersona(persona);
-    setSelectedSubreddit(""); // Reset subreddit when persona changes
-    onSelectionChange({ persona, subreddit: "" }); // Notify parent immediately
+    setSelectedSubreddit("");
+    onSelectionChange({ persona, subreddit: "" });
+
+    // Fetch subreddits for selected persona
+    fetch(`http://localhost:8000/subreddits/${persona}`)
+      .then((res) => res.json())
+      .then((data) => setSubreddits(data))
+      .catch((err) => console.error("Failed to fetch subreddits:", err));
   };
 
   const handleSubredditChange = (event) => {
     const subreddit = event.target.value;
     setSelectedSubreddit(subreddit);
-    onSelectionChange({ persona: selectedPersona, subreddit }); // Notify parent
+    onSelectionChange({ persona: selectedPersona, subreddit });
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        padding: "20px",
-        borderRadius: "8px",
-        backgroundColor: "#fff",
-      }}
-    >
-      <h2 style={{ color: "#333", marginTop: "0" }}>User Focus Panel</h2>
-      <div style={{ marginBottom: "15px" }}>
-        <label
-          htmlFor="persona-select"
-          style={{
-            display: "block",
-            marginBottom: "5px",
-            fontWeight: "bold",
-            color: "#555",
-          }}
-        >
-          Select Persona:
-        </label>
-        <select
-          id="persona-select"
-          value={selectedPersona}
-          onChange={handlePersonaChange}
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "4px",
-            border: "1px solid #ddd",
-            fontSize: "1em",
-          }}
-        >
-          <option value="">--Please choose a persona--</option>
-          {personas.map((persona) => (
-            <option key={persona} value={persona}>
-              {persona}
-            </option>
-          ))}
-        </select>
-      </div>
+    <div style={{ border: "1px solid #ccc", padding: "20px", borderRadius: "8px", backgroundColor: "#fff" }}>
+      <h2>Select User Persona</h2>
+
+      <label>Select Persona:</label>
+      <select value={selectedPersona} onChange={handlePersonaChange}>
+        <option value="">--Choose a Persona--</option>
+        {personas.map((persona) => (
+          <option key={persona} value={persona}>
+            {persona}
+          </option>
+        ))}
+      </select>
+
       {selectedPersona && (
-        <div style={{ marginTop: "15px" }}>
-          <label
-            htmlFor="subreddit-select"
-            style={{
-              display: "block",
-              marginBottom: "5px",
-              fontWeight: "bold",
-              color: "#555",
-            }}
-          >
-            Select Subreddit:
-          </label>
-          <select
-            id="subreddit-select"
-            value={selectedSubreddit}
-            onChange={handleSubredditChange}
-            disabled={!selectedPersona}
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "4px",
-              border: "1px solid #ddd",
-              fontSize: "1em",
-            }}
-          >
-            <option value="">--Please choose a subreddit--</option>
-            {subreddits[selectedPersona] &&
-              subreddits[selectedPersona].map((subreddit) => (
-                <option key={subreddit} value={subreddit}>
-                  {subreddit}
-                </option>
-              ))}
+        <>
+          <label style={{ marginTop: "10px" }}>Select Subreddit:</label>
+          <select value={selectedSubreddit} onChange={handleSubredditChange}>
+            <option value="">--Choose a Subreddit--</option>
+            {subreddits.map((sub) => (
+              <option key={sub} value={sub}>
+                {sub}
+              </option>
+            ))}
           </select>
-        </div>
-      )}
-      {selectedPersona && selectedSubreddit && (
-        <p
-          style={{
-            marginTop: "20px",
-            fontStyle: "italic",
-            color: "#777",
-            backgroundColor: "#e9f7ef",
-            padding: "10px",
-            borderRadius: "5px",
-          }}
-        >
-          Selected **{selectedPersona}** and **{selectedSubreddit}**. Data would
-          be loaded from backend.
-        </p>
+        </>
       )}
     </div>
   );
