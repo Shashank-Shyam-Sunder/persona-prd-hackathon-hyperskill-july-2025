@@ -84,6 +84,10 @@ Create a file named `.env` in the root and add your Google API key:
 ```env
 GOOGLE_API_KEY=your-real-key-here
 ```
+To generate Google API key,
+open
+https://aistudio.google.com/app/u/1/apikey?pli=1
+Click on "Create API key" and follow instructions.
 
 3. 🧠 **Run the full MVP pipeline**
 
