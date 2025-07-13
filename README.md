@@ -1,5 +1,11 @@
+# Intro
+1 First we created a console application.
+2 Then we converted it into the BE API application to serve FE.
+3 We wanted to convert FE to work with the BE API,
+but we did not have time to complete.
 
-# PersonaPRD – AI Hackathon July 2025 🚀
+
+# PersonaPRD – AI Hackathon July 2025 🚀 - console application
 
 PersonaPRD is an AI-powered system developed during the AI Hackathon July 2025. 
 It transforms unstructured Reddit feedback into structured, persona-specific 
