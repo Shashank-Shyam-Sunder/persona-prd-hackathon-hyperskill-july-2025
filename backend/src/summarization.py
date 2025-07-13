@@ -7,7 +7,7 @@ import pandas as pd
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import PromptTemplate
-from persona_config import PERSONA_TO_FOLDER
+from .persona_config import PERSONA_TO_FOLDER
 
 # Load environment variables
 load_dotenv()

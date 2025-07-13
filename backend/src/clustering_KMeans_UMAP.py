@@ -7,7 +7,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import umap
 import warnings
-from persona_config import PERSONA_TO_FOLDER
+from .persona_config import PERSONA_TO_FOLDER
 
 warnings.filterwarnings("ignore", message="n_jobs value 1 overridden to 1 by setting random_state")
 

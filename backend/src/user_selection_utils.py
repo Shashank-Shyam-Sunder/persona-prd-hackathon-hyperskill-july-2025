@@ -1,7 +1,7 @@
 # src/user_selection_utils.py
 
 import os
-from persona_config import DISPLAY_TO_PERSONA, PERSONA_TO_FOLDER
+from .persona_config import DISPLAY_TO_PERSONA, PERSONA_TO_FOLDER
 
 def get_available_personas():
     """
