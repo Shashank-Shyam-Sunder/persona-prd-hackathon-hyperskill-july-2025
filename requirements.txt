@@ -1,0 +1,24 @@
+# Core
+numpy
+pandas
+scikit-learn
+matplotlib
+
+# NLP & Embeddings
+sentence-transformers
+
+# Clustering & Dimensionality Reduction
+umap-learn
+
+# LLM Integration
+langchain
+langchain-google-genai
+
+# Environment Variables
+python-dotenv
+
+# Document Generation
+python-docx
+
+# Optional (for CLI enhancements or logging)
+tqdm

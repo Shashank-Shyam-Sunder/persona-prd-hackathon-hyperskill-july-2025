@@ -1,0 +1,2 @@
+silhouette_score,avg_intra_cluster_distance,avg_inter_cluster_distance,intra_inter_ratio,num_clusters
+0.03166356310248375,0.78641856,0.5416463,1.4519042,10
