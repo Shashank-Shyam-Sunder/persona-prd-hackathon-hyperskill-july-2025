@@ -78,6 +78,7 @@ persona-prd-hackathon-hyperskill-july-2025/
 1. 🔧 **Install requirements**
 
 ```bash
+# python or python3 - depends on your configuration
 python -m venv .venv
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 cd backend
@@ -105,6 +106,7 @@ Click on "Create API key" and follow instructions.
 
 ```bash
 #being in backend folder
+# python or python3 - depends on your configuration
 python run_full_mvp_cli.py
 ```
 
@@ -135,6 +137,7 @@ PORT=8000
 
 ```bash
 cd backend
+# python or python3 - depends on your configuration
 python main.py
 ```
 
