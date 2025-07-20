@@ -4,7 +4,7 @@ from docx import Document
 
 def save_prd_as_docx(prd_text: str, filepath: str):
     """
-    Save the generated PRD text into a nicely formatted .docx file.
+    Save the generated PRD text into a nicely formatteddocx file.
 
     Args:
         prd_text (str): Text of the PRD draft.

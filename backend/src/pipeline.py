@@ -2,13 +2,13 @@
 
 import os
 import argparse
-from .data_loader import load_data_for_persona_subreddit
-from .preprocessing import preprocess_texts
-from .embedding import load_or_generate_embeddings
-from .clustering_KMeans_UMAP import cluster_embeddings_kmeans_umap, save_cluster_labels_kmeans_umap
-from .cluster_diagnostics_module import run_cluster_diagnostics
-from .summarization import summarise_all_clusters
-from .persona_config import PERSONA_TO_FOLDER
+from data_loader import load_data_for_persona_subreddit
+from preprocessing import preprocess_texts
+from embedding import load_or_generate_embeddings
+from clustering_KMeans_UMAP import cluster_embeddings_kmeans_umap, save_cluster_labels_kmeans_umap
+from cluster_diagnostics_module import run_cluster_diagnostics
+from summarization import summarise_all_clusters
+from persona_config import PERSONA_TO_FOLDER
 
 
 def run_pipeline(persona: str, subreddit_file: str):

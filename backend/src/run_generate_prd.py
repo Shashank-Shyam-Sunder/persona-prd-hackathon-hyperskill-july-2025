@@ -3,8 +3,8 @@
 import os
 import argparse
 import pandas as pd
-from .prd_generator import generate_prd, save_prd_to_docx
-from .persona_config import PERSONA_TO_FOLDER, PERSONA_DISPLAY_NAMES
+from prd_generator import generate_prd, save_prd_to_docx
+from persona_config import PERSONA_TO_FOLDER, PERSONA_DISPLAY_NAMES
 from typing import List, Tuple
 
 

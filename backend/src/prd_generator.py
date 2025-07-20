@@ -8,7 +8,7 @@ from docx import Document
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import PromptTemplate
-from .persona_config import PERSONA_TO_FOLDER, PERSONA_DISPLAY_NAMES
+from persona_config import PERSONA_TO_FOLDER, PERSONA_DISPLAY_NAMES
 
 # ───────────────────────────────────────────────
 # 🔐 Load environment variables

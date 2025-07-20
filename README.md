@@ -80,6 +80,7 @@ persona-prd-hackathon-hyperskill-july-2025/
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+cd backend
 pip install -r requirements.txt
 ```
 
@@ -98,6 +99,7 @@ Click on "Create API key" and follow instructions.
 3. 🧠 **Run the full MVP pipeline**
 
 ```bash
+#being in backend folder
 python run_full_mvp_cli.py
 ```
 
