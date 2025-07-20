@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 
 # 👇 Ensure root directory is in Python path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
+# ✅ Add src/ to Python path for module imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
 
 from fastapi import FastAPI, HTTPException, Body, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,10 +18,13 @@ import pandas as pd
 import uvicorn
 from pydantic import BaseModel
 
-from src import persona_config
-from src.prd_generator import generate_prd
-from src.pipeline import run_pipeline
-from src.run_generate_prd import run_generate_prd_api
+from persona_config import DISPLAY_TO_PERSONA
+from persona_config import PERSONA_DISPLAY_NAMES
+from persona_config import PERSONA_SUBREDDIT_MAP
+from persona_config import folder_from_persona_and_subreddit
+from prd_generator import generate_prd
+from pipeline import run_pipeline
+from run_generate_prd import run_generate_prd_api
 
 # Load environment variables
 load_dotenv()
@@ -66,18 +71,18 @@ async def shutdown_endpoint(background_tasks: BackgroundTasks):
 
 @app.get("/personas")
 def get_personas():
-    return list(persona_config.PERSONA_SUBREDDIT_MAP.keys())
+    return list(PERSONA_SUBREDDIT_MAP.keys())
 
 @app.get("/subreddits/{persona}")
 def get_subreddits(persona: str):
     try:
-        return persona_config.PERSONA_SUBREDDIT_MAP[persona]
+        return PERSONA_SUBREDDIT_MAP[persona]
     except KeyError:
         raise HTTPException(status_code=404, detail="Persona not found")
 
 @app.get("/painpoints/{persona}/{subreddit}")
 def get_painpoints(persona: str, subreddit: str):
-    folder_name = persona_config.folder_from_persona_and_subreddit(persona, subreddit)
+    folder_name = folder_from_persona_and_subreddit(persona, subreddit)
     painpoint_file = DATA_DIR / folder_name / "pain_point_summaries.csv"
 
     if not painpoint_file.exists():
@@ -98,7 +103,7 @@ def get_painpoints(persona: str, subreddit: str):
 @app.get("/generate_prd/{persona}/{summary}")
 def generate_prd_endpoint(persona: str, summary: str):
     try:
-        prd = generate_prd([summary], persona_config.PERSONA_DISPLAY_NAMES[persona])
+        prd = generate_prd([summary], PERSONA_DISPLAY_NAMES[persona])
         return {"prd_text": prd}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

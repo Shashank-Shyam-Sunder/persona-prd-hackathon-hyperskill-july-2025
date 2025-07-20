@@ -86,7 +86,12 @@ pip install -r requirements.txt
 
 2. 🔑 **Set your .env**
 
-Create a file named `.env` in the root and add your Google API key:
+Create a file named `.env` in the root 
+```bash
+cp .env.example .env
+nano .env
+```
+and add your Google API key:
 
 ```env
 GOOGLE_API_KEY=your-real-key-here
@@ -136,16 +141,6 @@ python main.py
 The server will start on port 8000 
 (or the port specified in your .env file).
 
-### API Endpoints
-
-The API provides the following endpoints:
-
-- `GET /personas`: Get all available personas
-- `GET /subreddits/{persona}`: Get subreddits for a specific persona
-- `POST /run-pipeline`: Run the clustering pipeline for a selected persona 
-  and subreddit
-- `POST /generate-prd`: Generate a PRD for selected clusters
-
 ### API Documentation
 
 FastAPI provides automatic interactive API documentation.
@@ -156,11 +151,23 @@ Once the server is running, you can access:
 These interfaces allow you to explore and test all available endpoints 
 directly from your browser.
 
+You can also run it using PyCharm Tools->HttpClient
+
+### API Endpoints
+
+The API provides the following endpoints:
+
+- `GET /personas`: Get all available personas
+- `GET /subreddits/{persona}`: Get subreddits for a specific persona
+- `POST /run-pipeline`: Run the clustering pipeline for a selected persona
+  and subreddit
+- `POST /generate-prd`: Generate a PRD for selected clusters
+
 ### API Usage Examples
 
 #### Run Pipeline
 ```
-POST /run-pipeline
+POST http://localhost:8000/run-pipeline
 Content-Type: application/json
 
 {
@@ -171,7 +178,7 @@ Content-Type: application/json
 
 #### Generate PRD
 ```
-POST /generate-prd
+POST http://localhost:8000/generate-prd
 Content-Type: application/json
 
 {
