@@ -26,8 +26,15 @@ npm run start
 
 # persona-prd-hackathon-hyperskill-july-2025 - integrate-frontend branch
 
-After you tried it, please
+After you tried it, please Ctrl+C to stop the server.
+Navigate to another directory
+and start from the beginning to test integrate-frontend branch.
+Open another directory 
 ```bash
+mkdir integrated
+cd integrated
+git clone https://github.com/Shashank-Shyam-Sunder/persona-prd-hackathon-hyperskill-july-2025.git hack
+cd hack
 git pull -a
 git switch integrate-frontend
 ```
@@ -37,4 +44,5 @@ that implements data processing and clustering.
 After that, we converted the console application to API.
 Next step, we planned to link FE with BE API,
 but we did not have enough time to complete.
+Please switch to integrate-frontend branch and follow that branch README instructions.
 Please read integrate-frontend README that explains the flow.
